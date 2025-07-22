@@ -3,9 +3,25 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Elkhan Hami Links</title>
+  <title>Elkhan Hmai Links</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet" />
+
   <style>
+    @keyframes fadeOutScale {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.1);
+  }
+}
+
+.fade-out-scale {
+  animation: fadeOutScale 1s forwards;
+}
+
     @keyframes fadeOut {
       0% { opacity: 1; }
       100% { opacity: 0; transform: scale(1.1); }
@@ -33,11 +49,12 @@
     }
 
     body {
-      background: black;
+      background: rgb(0, 0, 0);
       font-family: 'Share Tech Mono', monospace;
       color: white;
       overflow: hidden;
     }
+
     h1 {
   font-family: 'Playfair Display', serif;
   font-weight: 70;
@@ -45,15 +62,16 @@
   color: white;
 }
 
+    
     #intro-screen {
       position: fixed;
       top: 0;
       left: 0;
       width: 100vw;
       height: 100vh;
-      background: black;
+      background: rgb(0, 0, 0);
       color: white;
-      font-size: 90px;
+      font-size: 70px;
       font-weight: bold;
       display: flex;
       justify-content: center;
@@ -63,6 +81,7 @@
       opacity: 1;
       transition: opacity 1.5s ease-in-out;
       font-family: 'Playfair Display', serif;
+
     }
 
     #intro-screen.hidden {
@@ -96,7 +115,7 @@
 
     .intro-text {
       max-width: 700px;
-      font-size: 16px;
+      font-size: 12px;
       line-height: 1.3;
       white-space: pre-line;
       color: white;
@@ -147,21 +166,23 @@
 <body>
 
 
-<div id="intro-screen"><span id="intro-text">Hello</span></div>
+<div id="intro-screen"><span id="intro-text"></span></div>
+
+
 
 
 <div id="main-content">
   <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px;">
   <img src="IMG_20240319_023029_160.jpg" alt="Profile" style="width: 80px; height: 80px; border-radius: 50%; border: 2px solid white;">
 </div>
+
   <h1>Elkhan Hami</h1>
   <div class="intro-text">
 My name is Elkhan 👻<br>
 A passionate developer exploring the world of programming and technology.<br>
 I am to build smart, creative, and useful tools that make digital life easier and better.<br>
-Here you can find my links and projects.<br>
+Here you can see my links and projects🎧.<br>
   </div>
-
   <div class="links">
     <a href="https://github.com/elkhanhami" target="_blank" rel="noopener noreferrer">
       <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub" />
@@ -171,40 +192,77 @@ Here you can find my links and projects.<br>
       <img src="https://img.icons8.com/?size=100&id=8808&format=png&color=000000" alt="LinkedIn" />
       LinkedIn
     </a>
+      <a href="https://karlancer.com/profile/881787" target="_blank" rel="noopener noreferrer">
+      <img src="https://quera.org/media/CACHE/images/public/careers/logos/fbbab77658f04d66b2d50f028f4b2744/02a5657cf39ad57496834ede221bd24c.png" alt="karlancer" />
+      Karlancer
+    </a>
+      <a href="https://ponisha.ir/profile/Elkhanhami" target="_blank" rel="noopener noreferrer">
+      <img src="https://ponisha.ir/favicon.ico" alt="ponisha" />
+      Ponisha
+    </a>
+    </div>
   </div>
 </div>
+
 
 
 <canvas id="binary-bg"></canvas>
 
 <script>
-  
-  window.onload = () => {
-    const intro = document.getElementById('intro-screen');
-    const introText = document.getElementById('intro-text');
-    const content = document.getElementById('main-content');
+  const intro = document.getElementById('intro-screen');
+  const introText = document.getElementById('intro-text');
+  const content = document.getElementById('main-content');
 
-    setTimeout(() => {
-      introText.classList.add('fade-out');
-    }, 1500);
+  function typeWriter(text, speed, element, callback) {
+  let i = 0;
+  let lastTime = 0;
+  element.textContent = '';
 
-    setTimeout(() => {
-      introText.textContent = 'Welcome';
-      introText.classList.remove('fade-out');
-      introText.classList.add('fade-in');
-    }, 2700);
+  function typing(time) {
+    if (!lastTime) lastTime = time;
+    const elapsed = time - lastTime;
 
-    setTimeout(() => {
-      intro.classList.add('hidden');
-    }, 4500);
+    if (i < text.length) {
+      if (elapsed > speed) {
+        element.textContent += text.charAt(i);
+        i++;
+        lastTime = time;
+      }
+      requestAnimationFrame(typing);
+    } else {
+      // توقف 1 ثانیه بعد از اتمام تایپ
+      setTimeout(() => {
+        if (callback) callback();
+      }, 1500);
+    }
+  }
 
-    setTimeout(() => {
-      content.classList.add('visible');
-    }, 5500);
-  };
+  requestAnimationFrame(typing);
+}
 
 
-  
+window.onload = () => {
+  const intro = document.getElementById('intro-screen');
+  const introText = document.getElementById('intro-text');
+  const content = document.getElementById('main-content');
+
+  typeWriter("Hello", 150, introText, () => {
+    introText.classList.add('fade-out-scale');
+    introText.addEventListener('animationend', () => {
+      introText.classList.remove('fade-out-scale');
+      typeWriter("Welcome", 150, introText, () => {
+        introText.classList.add('fade-out-scale');
+        introText.addEventListener('animationend', () => {
+          intro.classList.add('hidden');
+          content.classList.add('visible');
+        }, { once: true });
+      });
+    }, { once: true });
+  });
+};
+
+
+  // ماتریکس بک‌گراند
   const canvas = document.getElementById('binary-bg');
   const ctx = canvas.getContext('2d');
 
@@ -242,6 +300,7 @@ Here you can find my links and projects.<br>
 
   setInterval(draw, 50);
 </script>
+
 
 </body>
 </html>
