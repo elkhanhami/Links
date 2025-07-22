@@ -125,7 +125,16 @@
       margin-top: 40px;
       display: flex;
       gap: 20px;
+
+      opacity: 0;          
+      pointer-events: none; 
+      transition: opacity 1s ease;
     }
+    .links.visible {
+      opacity: 1;          
+      pointer-events: auto; 
+    }
+
 
     .links a {
       display: flex;
@@ -152,12 +161,13 @@
       justify-content: center;
     }
       .links a {
-      flex: 0 0 45%; /* هر لینک تقریبا نصف عرض */
+      flex: 0 0 45%; 
       justify-content: center;
-      margin-bottom: 15px; /* فاصله زیر هر لینک */
+      margin-bottom: 15px; 
     }
   }
-    
+
+
     .links img {
       width: 24px;
       height: 24px;
@@ -189,12 +199,7 @@
 </div>
 
   <h1>Elkhan Hami</h1>
-  <div class="intro-text">
-My name is Elkhan 👻<br>
-A passionate developer exploring the world of programming and technology.<br>
-I am to build smart, creative, and useful tools that make digital life easier and better.<br>
-Here you can see my links and projects🎧.<br>
-  </div>
+  <div class="intro-text" id="intro-text-main"></div>
   <div class="links">
     <a href="https://github.com/elkhanhami" target="_blank" rel="noopener noreferrer">
       <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub" />
@@ -242,7 +247,7 @@ Here you can see my links and projects🎧.<br>
       }
       requestAnimationFrame(typing);
     } else {
-      // توقف 1 ثانیه بعد از اتمام تایپ
+      
       setTimeout(() => {
         if (callback) callback();
       }, 1500);
@@ -252,11 +257,11 @@ Here you can see my links and projects🎧.<br>
   requestAnimationFrame(typing);
 }
 
-
 window.onload = () => {
   const intro = document.getElementById('intro-screen');
   const introText = document.getElementById('intro-text');
   const content = document.getElementById('main-content');
+  const mainIntroText = document.querySelector('.intro-text');
 
   typeWriter("Hello", 150, introText, () => {
     introText.classList.add('fade-out-scale');
@@ -267,6 +272,18 @@ window.onload = () => {
         introText.addEventListener('animationend', () => {
           intro.classList.add('hidden');
           content.classList.add('visible');
+
+          const introFullText = `
+A passionate developer exploring the world of programming and technology
+
+I am to build smart, creative, and useful tools that make digital life easier and better
+
+Here you can see my links and projects.`;
+
+          typeWriter(introFullText, 50, mainIntroText, () => {
+            document.querySelector('.links').classList.add('visible');
+          });
+
         }, { once: true });
       });
     }, { once: true });
@@ -274,7 +291,8 @@ window.onload = () => {
 };
 
 
-  // ماتریکس بک‌گراند
+
+
   const canvas = document.getElementById('binary-bg');
   const ctx = canvas.getContext('2d');
 
