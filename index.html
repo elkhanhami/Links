@@ -4,7 +4,26 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Elkhan Hami Links</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet" />
   <style>
+    @keyframes fadeOut {
+      0% { opacity: 1; }
+      100% { opacity: 0; transform: scale(1.1); }
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: scale(0.9); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    #intro-text.fade-out {
+      animation: fadeOut 1s ease forwards;
+    }
+
+    #intro-text.fade-in {
+      animation: fadeIn 1s ease forwards;
+    }
+
     @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
 
     * {
@@ -19,8 +38,13 @@
       color: white;
       overflow: hidden;
     }
+    h1 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 70;
+  font-size: 30px;
+  color: white;
+}
 
-    
     #intro-screen {
       position: fixed;
       top: 0;
@@ -29,7 +53,7 @@
       height: 100vh;
       background: black;
       color: white;
-      font-size: 80px;
+      font-size: 90px;
       font-weight: bold;
       display: flex;
       justify-content: center;
@@ -38,6 +62,7 @@
       user-select: none;
       opacity: 1;
       transition: opacity 1.5s ease-in-out;
+      font-family: 'Playfair Display', serif;
     }
 
     #intro-screen.hidden {
@@ -122,7 +147,7 @@
 <body>
 
 
-<div id="intro-screen">Hello</div>
+<div id="intro-screen"><span id="intro-text">Hello</span></div>
 
 
 <div id="main-content">
@@ -156,16 +181,28 @@ Here you can find my links and projects.<br>
   
   window.onload = () => {
     const intro = document.getElementById('intro-screen');
+    const introText = document.getElementById('intro-text');
     const content = document.getElementById('main-content');
 
     setTimeout(() => {
+      introText.classList.add('fade-out');
+    }, 1500);
+
+    setTimeout(() => {
+      introText.textContent = 'Welcome';
+      introText.classList.remove('fade-out');
+      introText.classList.add('fade-in');
+    }, 2700);
+
+    setTimeout(() => {
       intro.classList.add('hidden');
-    }, 2000);
+    }, 4500);
 
     setTimeout(() => {
       content.classList.add('visible');
-    }, 3500);
+    }, 5500);
   };
+
 
   
   const canvas = document.getElementById('binary-bg');
