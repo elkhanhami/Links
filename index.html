@@ -167,12 +167,14 @@
     }
   }
 
-
     .links img {
       width: 24px;
       height: 24px;
+      object-fit: contain;
+      display: block;
       filter: brightness(0) invert(1);
     }
+
 
     canvas {
       position: fixed;
@@ -183,6 +185,27 @@
       z-index: 1;
       pointer-events: none;
     }
+    
+  @media (max-width: 750px) {
+    .links {
+      flex-wrap: wrap;
+      justify-content: center;
+  }
+
+  .links a {
+    flex: 0 0 45%;
+    justify-content: center;
+    margin-bottom: 15px;
+    font-size: 14px;        
+    padding: 8px 15px;      
+  }
+
+  .links img {
+    width: 20px;            
+    height: 20px;
+  }
+}
+    
   </style>
 </head>
 <body>
@@ -195,7 +218,7 @@
 
 <div id="main-content">
   <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px;">
-  <img src="IMG_20240319_023029_160.jpg" alt="Profile" style="width: 80px; height: 80px; border-radius: 50%; border: 2px solid white;">
+  <img src="88ec5bd7aaea78ce6cd594eae37223c6.jpg" alt="Profile" style="width: 80px; height: 80px; border-radius: 50%; border: 2px solid white;">
 </div>
 
   <h1>Elkhan Hami</h1>
